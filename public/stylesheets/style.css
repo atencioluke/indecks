@@ -1,0 +1,29 @@
+.carousel-item{ position: relative !important; }
+.black-overlay{ position: absolute; 
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #343a40;
+  }
+
+  div.card-header {
+    background: #343a40;
+  }
+
+  .carousel .item img {
+    max-height: 768px;
+    min-width: auto;
+  }
+
+  div.carousel-cap-padding {
+      padding: 25% 0;
+  }
