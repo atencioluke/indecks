@@ -4,6 +4,9 @@ require 'bundler/setup'
 Bundler.require(:default, ENV['SINATRA_ENV'])
 
 require 'securerandom'
+require 'pry'
+
+SESSION_SECRET = 'fe11963bac27bb60085ee1a5ac5b1a25'
 
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",

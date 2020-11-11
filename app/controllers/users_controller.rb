@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
   # GET: /users
-  get "/users" do
-    erb :"/users/index.html"
-  end
+  # get "/users" do
+  #   erb :"/users/index.html"
+  # end
 
   # GET: /signup
   get "/signup" do
@@ -19,8 +19,7 @@ class UsersController < ApplicationController
     if params[:first_name] == "" || params[:email] == "" || params[:password] == ""
       redirect to '/signup'
     else
-      @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
-      @user.save
+      @user = User.create(first_name: params[:first_name], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
       redirect to '/decks'
     end
@@ -36,34 +35,14 @@ class UsersController < ApplicationController
   end
 
   # POST: /signin
-  post "/login" do
-    user = User.find_by(:email => params[:email])
+  post "/signin" do
+    @user = User.find_by(:email => params[:email])
    
-    if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
       redirect "/decks"
     else
-      redirect "/login"
+      redirect "/signin"
     end
-  end
-
-  # GET: /users/5
-  get "/users/:id" do
-    erb :"/users/show.html"
-  end
-
-  # GET: /users/5/edit
-  get "/users/:id/edit" do
-    erb :"/users/edit.html"
-  end
-
-  # PATCH: /users/5
-  patch "/users/:id" do
-    redirect "/users/:id"
-  end
-
-  # DELETE: /users/5/delete
-  delete "/users/:id/delete" do
-    redirect "/users"
   end
 end

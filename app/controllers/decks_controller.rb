@@ -3,10 +3,11 @@ class DecksController < ApplicationController
   # GET: /decks
   get "/decks" do
     if logged_in?
-      @decks = Deck.all
+      @user = current_user
+      @decks = Deck.find_by(user: @user)
       erb :"/decks/decks"
     else
-      redirect to "/login"
+      redirect to "/signin"
     end
   end
 
