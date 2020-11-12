@@ -1,8 +1,8 @@
 class CardsController < ApplicationController
 
   # GET: /cards
-  get "/cards" do
-    erb :"/cards/index.html"
+  get "/:slug/cards" do
+    
   end
 
   # GET: /cards/new

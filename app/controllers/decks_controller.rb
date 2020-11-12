@@ -3,9 +3,12 @@ class DecksController < ApplicationController
   # GET: /decks
   get "/decks" do
     if logged_in?
-      @user = current_user
       @decks = Deck.find_by(user: @user)
-      erb :"/decks/decks"
+      if @decks.nil?
+        redirect to "/decks/new"
+      else
+        erb :"/decks/decks"
+      end
     else
       redirect to "/signin"
     end
@@ -13,17 +16,23 @@ class DecksController < ApplicationController
 
   # GET: /decks/new
   get "/decks/new" do
-    erb :"/decks/new.html"
+    erb :"/decks/new"
   end
 
   # POST: /decks
   post "/decks" do
+    if params[:name] == "" || !Deck.find_by(name: params[:name])
+      redirect to '/decks/new'
+    else
+      @deck = Deck.create(name: params[:name], user_id: current_user.id)
+      redirect to '/cards'
+    end
     redirect "/decks"
   end
 
   # GET: /decks/5
   get "/decks/:id" do
-    erb :"/decks/show.html"
+    erb :"/decks/show"
   end
 
   # GET: /decks/5/edit
