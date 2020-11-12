@@ -2,16 +2,8 @@ class DecksController < ApplicationController
 
   # GET: /decks
   get "/decks" do
-    if logged_in?
-      @decks = Deck.find_by(user: @user)
-      if @decks.nil?
-        redirect to "/decks/new"
-      else
-        erb :"/decks/decks"
-      end
-    else
-      redirect to "/signin"
-    end
+    @decks = Deck.find_by(user: @user)
+    erb :"/decks/decks"
   end
 
   # GET: /decks/new

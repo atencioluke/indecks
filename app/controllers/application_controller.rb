@@ -7,14 +7,19 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, SESSION_SECRET
+    register Sinatra::Flash
+  end
+
+  before do
+    if request.path != "/" && request.path != "/signup" && request.path != "/signin"
+        if !logged_in?
+            redirect "/signin"
+        end
+    end
   end
 
   get "/" do
-    if logged_in?
-      redirect to '/decks'
-    else
-      erb :welcome
-    end
+    erb :welcome
   end
 
   helpers do

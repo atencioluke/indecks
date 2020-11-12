@@ -5,6 +5,7 @@ Bundler.require(:default, ENV['SINATRA_ENV'])
 
 require 'securerandom'
 require 'pry'
+require 'sinatra/flash'
 
 SESSION_SECRET = 'fe11963bac27bb60085ee1a5ac5b1a25'
 

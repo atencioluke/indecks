@@ -1,10 +1,5 @@
 class UsersController < ApplicationController
 
-  # GET: /users
-  # get "/users" do
-  #   erb :"/users/index.html"
-  # end
-
   # GET: /signup
   get "/signup" do
     if !logged_in?
@@ -16,8 +11,8 @@ class UsersController < ApplicationController
 
   # POST: /signup
   post "/signup" do
-    if params[:first_name] == "" || params[:email] == "" || params[:password] == ""
-      redirect to '/signup', notice: "Please enter your information."
+    if params[:first_name] == "" || params[:email] == "" || params[:password] == "" || User.find_by(email: params[:email])
+      redirect to '/signup'
     else
       @user = User.create(first_name: params[:first_name], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
@@ -44,5 +39,11 @@ class UsersController < ApplicationController
     else
       redirect "/signin"
     end
+  end
+
+  get "/signout" do
+    session.clear
+    flash[:info] = "You have logged out."
+    redirect to "/"
   end
 end
