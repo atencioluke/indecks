@@ -11,12 +11,12 @@ class UsersController < ApplicationController
 
   # POST: /signup
   post "/signup" do
-    if params[:first_name] == "" || params[:email] == "" || params[:password] == "" || User.find_by(email: params[:email])
-      redirect to '/signup'
-    else
-      @user = User.create(first_name: params[:first_name], email: params[:email], password: params[:password])
+    @user = User.new(params)
+    if @user.save
       session[:user_id] = @user.id
       redirect to '/decks'
+    else
+      redirect to '/signup'
     end
   end
 

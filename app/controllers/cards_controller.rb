@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
 
   # GET: /cards
-  get "/:slug/cards" do
+  get "/:deckslug/cards" do
     
   end
 
