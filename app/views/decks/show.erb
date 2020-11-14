@@ -1,0 +1,18 @@
+<div class="container min-vh-100" style="padding-top: 40px;">
+    
+        <div class="card mb-3" style="max-width: 85rem;">
+            <div class="card-header text-light"><h2><%= @deck.name %></h2></div>
+            <div class="card-body">
+            <a href="/decks/<%= @deck.slug %>/cards/new"><button type="button" class="btn btn-dark btn-lg">Create a Card</button></a>
+            <% if @cards.nil? %>
+                <h4 class="card-title" style="padding-top: 1rem;">Please create a card.</h4>
+            <% else %>
+                <% @cards.each do |card| %>
+                <div class="card-body list-group">
+                    <a href="#" class="list-group-item list-group-item-action"><%= card.name %></a>
+                </div>
+                <% end %>
+            <% end %>
+            </div>
+        </div>
+</div>
