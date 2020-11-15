@@ -8,12 +8,12 @@
         <% @decks.each do |deck| %>
             <div class="row" style="padding-top: 1rem;">
                 <div class="col-xl-12">
-                    <div class="card text-light">
+                    <div class="card text-light text-center">
                         <div class="card-header display-4"><%= deck.name %></div>
                     <div class="card-body">
                         <p class="card-text"></p>
-                        <a href="/decks/<%= deck.slug %>" class="btn btn-outline-dark btn-lg">View Deck</a>
-                        <a href="/decks/<%= deck.slug %>/edit" class="btn btn-outline-dark btn-lg">Edit Deck</a>
+                        <a href="/decks/<%= deck.slug %>" class="btn btn-outline-dark btn-lg btn-block">View Deck</a>
+                        <a href="/decks/<%= deck.slug %>/edit" class="btn btn-outline-dark btn-lg btn-block">Edit Deck</a>
                     </div>
                     </div>
                 </div>

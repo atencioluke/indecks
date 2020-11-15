@@ -1,37 +1,42 @@
 class CardsController < ApplicationController
 
-  # GET: /cards
-  get "/:deckslug/cards" do
-    @deck = Deck.find_by_slug_and_user_id(params[:deckslug])
-  end
-
   # GET: /cards/new
-  get "/cards/new" do
-    erb :"/cards/new.html"
+  get "/decks/:deckslug/cards/new" do
+    @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
+    if @deck
+      erb :"/cards/new"
+    else
+      redirect to "/decks"
+    end
   end
 
   # POST: /cards
-  post "/cards" do
+  post "/decks/:deckslug/cards" do
+    @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     redirect "/cards"
   end
 
   # GET: /cards/5
-  get "/cards/:id" do
+  get "/decks/:deckslug/cards/:slug" do
+    @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     erb :"/cards/show.html"
   end
 
   # GET: /cards/5/edit
-  get "/cards/:id/edit" do
+  get "/decks/:deckslug/cards/:slug/edit" do
+    @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     erb :"/cards/edit.html"
   end
 
   # PATCH: /cards/5
-  patch "/cards/:id" do
+  patch "/decks/:deckslug/cards/:slug" do
+    @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     redirect "/cards/:id"
   end
 
   # DELETE: /cards/5/delete
-  delete "/cards/:id/delete" do
+  delete "/decks/:deckslug/cards/:slug/delete" do
+    @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     redirect "/cards"
   end
 end
