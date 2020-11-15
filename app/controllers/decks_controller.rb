@@ -48,8 +48,8 @@ class DecksController < ApplicationController
   patch "/decks/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:slug], @user.id)
     if @deck
-      @deck.update(params)
-      redirect "/decks/#{params[:slug]}"
+      @deck.update(name: params[:name])
+      redirect "/decks/#{ @deck.slug }"
     else
       flash[:error] = "Please navigate to a Deck you own."
       redirect "/decks"
@@ -57,11 +57,11 @@ class DecksController < ApplicationController
   end
 
   # DELETE: /decks/5/delete
-  delete "/decks/:slug/delete" do
+  delete "/decks/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:slug], @user.id)
     if @deck
       flash[:info] = "#{@deck.name} successfully deleted."
-      @deck.delete
+      @deck.destroy
       redirect "/decks"
     else
       flash[:error] = "Please navigate to a Deck you own."
