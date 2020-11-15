@@ -4,6 +4,7 @@
             <div class="card-header text-light text-center display-4"><%= @deck.name %></div>
             <div class="card-body">
             <a href="/decks/<%= @deck.slug %>/cards/new"><button type="button" class="btn btn-dark btn-lg">Create a Card</button></a>
+            <a href="/decks/<%= @deck.slug %>/edit"><button type="button" class="btn btn-dark btn-lg">Edit <%= @deck.name %></button></a>
             <% if @cards.nil? %>
                 <h4 class="card-title" style="padding-top: 1rem;">Please create a card.</h4>
             <% else %>

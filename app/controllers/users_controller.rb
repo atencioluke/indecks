@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   # POST: /signup
   post "/signup" do
-    @user = User.new(params)
+    @user = User.new(first_name: params[:first_name], email: params[:email].downcase, password: params[:password])
     if @user.save
       session[:user_id] = @user.id
       redirect to '/decks'
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   # POST: /signin
   post "/signin" do
-    @user = User.find_by(:email => params[:email])
+    @user = User.find_by(email: params[:email].downcase)
    
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id

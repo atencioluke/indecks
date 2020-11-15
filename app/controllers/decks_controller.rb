@@ -2,7 +2,6 @@ class DecksController < ApplicationController
 
   # GET: /decks
   get "/decks" do
-
     erb :"/decks/decks"
   end
 
@@ -37,20 +36,19 @@ class DecksController < ApplicationController
   # GET: /decks/slug/edit
   get "/decks/:slug/edit" do
     @deck = Deck.find_by_slug_and_user_id(params[:slug], @user.id)
-    if @deck && @deck.user_id == current_user.id
-      @cards = Card.find_by(deck_id: @deck.id)
-      erb :"/decks/show"
+    if @deck
+      erb :"/decks/edit"
     else
       flash[:error] = "Please navigate to a Deck you own."
       redirect "/decks"
     end
   end
 
-  # PATCH: /decks/5
+  # PATCH: /decks/slug
   patch "/decks/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:slug], @user.id)
-    if @deck && @deck.user_id == current_user.id
-      @cards = Card.find_by(deck_id: @deck.id)
+    if @deck
+      @deck.update(params)
       redirect "/decks/#{params[:slug]}"
     else
       flash[:error] = "Please navigate to a Deck you own."
@@ -61,7 +59,7 @@ class DecksController < ApplicationController
   # DELETE: /decks/5/delete
   delete "/decks/:slug/delete" do
     @deck = Deck.find_by_slug_and_user_id(params[:slug], @user.id)
-    if @deck && @deck.user_id == current_user.id
+    if @deck
       flash[:info] = "#{@deck.name} successfully deleted."
       @deck.delete
       redirect "/decks"

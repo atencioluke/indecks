@@ -27,8 +27,8 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/decks">Decks</a>
-                <div class="dropdown-divider"></div>
                 <% @decks.each do |deck| %>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/decks/<%= deck.slug %>"><%= deck.name %></a>
                 <% end %>
               </div>

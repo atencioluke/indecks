@@ -12,13 +12,10 @@ class ApplicationController < Sinatra::Base
 
   before do
     @user = current_user
-    if @user
-      @decks = Deck.all.where(user_id: @user.id)
-    end
+    @decks = Deck.all.where(user_id: @user.id) if @user
+
     if request.path != "/" && request.path != "/signup" && request.path != "/signin"
-        if !logged_in?
-            redirect "/signin"
-        end
+        redirect "/signin" if !logged_in?
     end
   end
 
