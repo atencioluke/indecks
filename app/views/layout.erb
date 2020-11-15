@@ -20,19 +20,25 @@
 
       <% if logged_in? %>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-           <ul class="navbar-nav mr-auto">
+           <ul class="navbar-nav mx-auto">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="/decks" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Decks
+              <a class="nav-link dropdown-toggle" href="/decks" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 1.5rem;">
+              Decks
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="/decks">Decks</a>
+                <% @decks.each do |deck| %>
+                  <a class="dropdown-item" href="/decks/<%= deck.slug %>"><%= deck.name %></a>
+                <% end %>
               </div>
             </li>
           </ul>
           <a href="/signout"><button type="button" class="btn btn-outline-light btn-md">Sign out</button></a>
         </div>
         <% else %>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <a href="/signin"><button type="button" class="btn btn-outline-light btn-md">Sign in</button></a>
+        </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <a href="/signup"><button type="button" class="btn btn-outline-light btn-md">Sign up</button></a>
         </div>

@@ -7,4 +7,5 @@ class Deck < ActiveRecord::Base
     has_many :tags, through: :cards
 
     validates :name, presence: true
+    validates :name, uniqueness: { scope: :user_id }
 end

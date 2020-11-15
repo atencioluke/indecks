@@ -9,6 +9,9 @@ module SlugMod
         def slug
             #strip the string
             slg = self.name.strip
+
+            #downcase
+            slg.downcase!
         
             #remove apostrophes
             slg.gsub!(/['`]/,"")

@@ -2,7 +2,7 @@ class CardsController < ApplicationController
 
   # GET: /cards
   get "/:deckslug/cards" do
-    
+    @deck = Deck.find_by_slug_and_user_id(params[:deckslug])
   end
 
   # GET: /cards/new
