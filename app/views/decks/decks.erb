@@ -12,6 +12,7 @@
                         <div class="card-header display-4"><%= deck.name %></div>
                     <div class="card-body">
                         <p class="card-text"></p>
+                        <a href="/decks/<%= deck.slug %>/cards/new" class="btn btn-outline-dark btn-lg btn-block">Add a Card</a>
                         <a href="/decks/<%= deck.slug %>" class="btn btn-outline-dark btn-lg btn-block">View Deck</a>
                         <a href="/decks/<%= deck.slug %>/edit" class="btn btn-outline-dark btn-lg btn-block">Edit Deck</a>
                     </div>
