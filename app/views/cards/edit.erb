@@ -1,1 +1,31 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<div class="container">
+    <div class="row min-vh-100 justify-content-center align-items-center">
+        <div class="card " style="width: 80%;">
+            <div class="card-header text-light">
+                <h3>Edit <%= @card.name %></h5>
+            </div>
+            <div class="card-body">
+                    <form method="POST" action="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>">
+                        <input type="hidden" name="_method" value="patch">
+                    <div class="form-group">
+                        <label for="name">Card name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<%= @card.name %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" id="tags" name="tags" value="<%= @card.tags %>">
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="submit" class="btn btn-outline-dark btn-lg">Save</button>
+                    </form>
+
+                        <form method="POST" action="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>">
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" class="btn btn-outline-dark btn-lg">Delete</button>
+                        </form>
+                        <a href="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>"><button type="button" class="btn btn-lg">Cancel</button></a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

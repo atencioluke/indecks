@@ -13,10 +13,11 @@
             <form method="POST" action="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>/notes">
                 <div class="form-group">
                     <label for="content">Add a Note</label>
-                    <textarea class="form-control" id="content" rows="3"></textarea>
+                    <textarea class="form-control" id="content" name="content" rows="3"></textarea>
                     <button type="submit" class="btn btn-dark btn-lg">Add</button>
                 </div>
             </form>
+
             <% if @notes.nil? %>
                 <h4 class="card-title" style="padding-top: 1rem;">Please add a note.</h4>
             <% else %>
@@ -25,14 +26,17 @@
                 <div class="col-xl-12">
                     <div class="card-body">
                         <p class="card-text"><%= note.content %></p>
-                        <a href="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>" class="btn btn-outline-dark btn-lg btn-block">View Card</a>
-                        <a href="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>/edit" class="btn btn-outline-dark btn-lg btn-block">Edit Card</a>
+                        <small class="text-muted">Updated at: <%= note.updated_at %></small>
+                        <form method="POST" action="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>/notes/<%= note.id %>">
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" class="btn btn-outline-dark btn-lg">Delete</button>
+                        </form>
                     </div>
                     </div>
                 </div>
-            </div>
                 <% end %>
             <% end %>
+            </div>
             </div>
         </div>
 </div>

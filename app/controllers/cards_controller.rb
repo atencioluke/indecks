@@ -39,18 +39,36 @@ class CardsController < ApplicationController
   # GET: /decks/deckslug/cards/slug/edit
   get "/decks/:deckslug/cards/:slug/edit" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
-    erb :"/cards/edit.html"
+    @card = Card.find_by_slug_and_deck_id(params[:slug], @deck.id)
+    @tags = @card.tags
+    erb :"/cards/edit"
   end
 
   # PATCH: /decks/deckslug/cards/slug
   patch "/decks/:deckslug/cards/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
-    redirect "/cards/:id"
+    @card = Card.find_by_slug_and_deck_id(params[:slug], @deck.id)
+    if @card
+      @card.update(name: params[:name])
+      @card.update(tags: params[:tags])
+      redirect "/decks/#{ @deck.slug }/cards/#{ @card.slug }"
+    else
+      flash[:error] = "Please navigate to a Deck or Card you own."
+      redirect "/decks"
+    end
   end
 
   # DELETE: /decks/deckslug/cards/slug
   delete "/decks/:deckslug/cards/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
-    redirect "/cards"
+    @card = Card.find_by_slug_and_deck_id(params[:slug], @deck.id)
+    if @card
+      flash[:info] = "#{@card.name} successfully deleted."
+      @card.destroy
+      redirect "/decks/#{ @deck.slug }"
+    else
+      flash[:error] = "Please navigate to a Deck or Card you own."
+      redirect "/decks/#{ @deck.slug }"
+    end
   end
 end
