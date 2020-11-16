@@ -25,7 +25,7 @@ class DecksController < ApplicationController
   get "/decks/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:slug], @user.id)
     if @deck
-      @cards = Card.find_by(deck_id: @deck.id)
+      @cards = Card.where(deck_id: @deck.id)
       erb :"/decks/show"
     else
       flash[:error] = "Please navigate to a Deck you own."

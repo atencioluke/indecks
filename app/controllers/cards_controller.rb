@@ -13,29 +13,42 @@ class CardsController < ApplicationController
   # POST: /cards
   post "/decks/:deckslug/cards" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
-    redirect "/cards"
+    if @deck
+      @card = Card.new(name: params[:name], tags: params[:tags], deck_id: @deck.id)
+      if @card.save
+        redirect to "/decks/#{ @deck.slug }/cards/#{ @card.slug }"
+      else
+        flash[:error] = "Please enter a valid name."
+        redirect to "/decks/#{ @deck.slug }/"
+      end
+    else
+      flash[:error] = "Please navigate to a Deck you own."
+      redirect to "/decks"
+    end
   end
 
-  # GET: /cards/5
+  # GET: /decks/deckslug/cards/slug
   get "/decks/:deckslug/cards/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
-    erb :"/cards/show.html"
+    @card = Card.find_by_slug_and_deck_id(params[:slug], @deck.id)
+    @notes = Note.where(card_id: @card.id).order(updated_at: :desc)
+    erb :"/cards/show"
   end
 
-  # GET: /cards/5/edit
+  # GET: /decks/deckslug/cards/slug/edit
   get "/decks/:deckslug/cards/:slug/edit" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     erb :"/cards/edit.html"
   end
 
-  # PATCH: /cards/5
+  # PATCH: /decks/deckslug/cards/slug
   patch "/decks/:deckslug/cards/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     redirect "/cards/:id"
   end
 
-  # DELETE: /cards/5/delete
-  delete "/decks/:deckslug/cards/:slug/delete" do
+  # DELETE: /decks/deckslug/cards/slug
+  delete "/decks/:deckslug/cards/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     redirect "/cards"
   end

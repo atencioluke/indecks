@@ -5,4 +5,5 @@ class Card < ActiveRecord::Base
     belongs_to :deck
     has_many :notes
     validates :name, presence: true
+    validates :name, uniqueness: { scope: :deck_id }
 end

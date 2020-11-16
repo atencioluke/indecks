@@ -3,6 +3,10 @@ module SlugMod
         def find_by_slug_and_user_id(slug, user_id)
           self.all.find{|i| i.slug == slug && i.user_id == user_id}
         end
+
+        def find_by_slug_and_deck_id(slug, deck_id)
+          self.all.find{|i| i.slug == slug && i.deck_id == deck_id}
+        end
       end
     
       module InstanceMethods

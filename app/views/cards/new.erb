@@ -5,7 +5,7 @@
                 <h3>Create a Card</h5>
             </div>
             <div class="card-body">
-                    <form method="POST" action="/cards">
+                    <form method="POST" action="/decks/<%= @deck.slug %>/cards">
                     <div class="form-group">
                         <label for="name">Card name</label>
                         <input type="text" class="form-control" id="name" name="name">
