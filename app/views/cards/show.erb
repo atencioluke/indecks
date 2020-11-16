@@ -2,23 +2,31 @@
     
         <div class="card mb-3" style="max-width: 85rem;">
             <div class="card-header text-light text-center display-3"><%= @deck.name %></div>
+
             <div class="card-header text-light text-center display-4"><%= @card.name %></div>
+
             <div class="card-body">
-            <a href="/decks/<%= @deck.slug %>/cards/new"><button type="button" class="btn btn-dark btn-lg">Create a Card</button></a>
-            <a href="/decks/<%= @deck.slug %>/edit"><button type="button" class="btn btn-dark btn-lg">Edit <%= @deck.name %></button></a>
-            <% if @cards.nil? %>
-                <h4 class="card-title" style="padding-top: 1rem;">Please create a card.</h4>
+            <a href="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>/edit"><button type="button" class="btn btn-dark btn-lg">Edit <%= @card.name %></button></a>
+            
+            <p class="lead"><strong>Tags:</strong> <%= @tags %></p>
+
+            <form method="POST" action="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>/notes">
+                <div class="form-group">
+                    <label for="content">Add a Note</label>
+                    <textarea class="form-control" id="content" rows="3"></textarea>
+                    <button type="submit" class="btn btn-dark btn-lg">Add</button>
+                </div>
+            </form>
+            <% if @notes.nil? %>
+                <h4 class="card-title" style="padding-top: 1rem;">Please add a note.</h4>
             <% else %>
-                <% @cards.each do |card| %>
+                <% @notes.each do |note| %>
                 <div class="row" style="padding-top: 1rem;">
                 <div class="col-xl-12">
-                    <div class="card text-light text-center">
-                        <div class="card-header display-4"><%= card.name %></div>
                     <div class="card-body">
-                        <p class="card-text"><%= card.tags %></p>
-                        <p class="card-text"><%= Note.where(card_id: card.id).last %></p>
-                        <a href="/decks/<%= @deck.slug %>/cards/<%= card.slug %>" class="btn btn-outline-dark btn-lg btn-block">View Card</a>
-                        <a href="/decks/<%= @deck.slug %>/cards/<%= card.slug %>/edit" class="btn btn-outline-dark btn-lg btn-block">Edit Card</a>
+                        <p class="card-text"><%= note.content %></p>
+                        <a href="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>" class="btn btn-outline-dark btn-lg btn-block">View Card</a>
+                        <a href="/decks/<%= @deck.slug %>/cards/<%= @card.slug %>/edit" class="btn btn-outline-dark btn-lg btn-block">Edit Card</a>
                     </div>
                     </div>
                 </div>

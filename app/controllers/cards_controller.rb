@@ -31,6 +31,7 @@ class CardsController < ApplicationController
   get "/decks/:deckslug/cards/:slug" do
     @deck = Deck.find_by_slug_and_user_id(params[:deckslug], @user.id)
     @card = Card.find_by_slug_and_deck_id(params[:slug], @deck.id)
+    @tags = @card.tags.split(",").join(", ")
     @notes = Note.where(card_id: @card.id).order(updated_at: :desc)
     erb :"/cards/show"
   end
